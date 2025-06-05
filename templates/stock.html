@@ -1,0 +1,18 @@
+{%extends 'base.html' %}
+{% block title %} STOCK {%endblock%}
+
+<!-- Botones de la página -->
+{% block buttons %}
+
+{%include 'botonStock/stock-agregarStock.html'%}
+{%include 'botonStock/stock-agregarProducto.html'%}
+{%include 'botonStock/stock-modificarEstado.html'%}
+
+{%endblock%}
+
+<!-- Contenido de la página -->
+{% block content %}
+{% if mostrar == 'lista' %}
+{% include 'stockLista.html' %}
+{% endif %}
+{% endblock %}

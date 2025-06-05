@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gestor de Bar - {% block title %} {%endblock%}</title>
+        <link rel="stylesheet"
+            href="{{url_for('static', filename = 'css/main.css')}}">
+        <link rel="stylesheet"
+            href="{{url_for('static', filename = 'css/styles.css')}}">
+        <!-- DataTables CSS -->
+        <link rel="stylesheet"
+            href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    </head>
+    <body>
+        <div class="flex-container">
+            <header class="header-left">GESTOR DE BAR</header>
+            <div class="button-center">
+                {% block buttons %}{% endblock %}
+            </div>
+        </div>
+        <div class="container">
+            <div class="sidebar">
+                {% if session.get('rol') == 'administrador' %}
+                <a href="{{url_for('stock.stock')}}"
+                    class="boton-ventana estiloBtn">STOCK</a>
+                <a href="{{url_for('informe.informe')}}"
+                    class="boton-ventana estiloBtn">INFORME</a>
+                <a href="{{url_for('usuario.usuario')}}"
+                    class="boton-ventana estiloBtn">USUARIO</a>
+                {% endif %}
+
+                {% if session.get('rol') in ['administrador', 'vendedor', 'cajero'] %}
+                <a href="{{url_for('venta.venta')}}"
+                    class="boton-ventana estiloBtn">VENTA</a>
+                {% endif %}
+
+                <a href="{{url_for('login.logout')}}"
+                    class="boton-ventana mt-auto bg-red-600 hover:bg-red-700 text-white">
+                    Salir
+                </a>
+            </div>
+            <div class="main-content">
+                <!-- Mensaje de bienvenida -->
+                <div>
+                    {{ mensaje | safe}}
+                </div>
+                {% block content %}
+                <!-- Bloque de contenido -->
+
+                {%endblock%}
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- DataTables JS -->
+        <script
+            src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+        <!-- Script para DataTable -->
+        <script
+            src="{{url_for('static', filename = 'js/DataTable.js')}}"></script>
+
+        <!-- Script para Sweet alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- Script para los mensajes -->
+        <script
+            src="{{ url_for('static', filename='js/mensajes.js') }}"></script>
+
+    </body>
+</html>
